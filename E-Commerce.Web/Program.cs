@@ -3,6 +3,7 @@ using System.Data;
 using DomainLayer.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Persistence.Repository;
 
 namespace E_Commerce.Web
 {
@@ -24,6 +25,7 @@ namespace E_Commerce.Web
                 Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
             builder.Services.AddScoped<IDataseeding, Dataseed>();
+            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
             var app = builder.Build();
 

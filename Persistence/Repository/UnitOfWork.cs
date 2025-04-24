@@ -8,7 +8,7 @@ using DomainLayer.Models;
 
 namespace Persistence.Repository
 {
-    class UnitOfWork(StoreDbcontext _Dbcontext) : IUnitOfWork
+    public class UnitOfWork(StoreDbcontext _Dbcontext) : IUnitOfWork
     {
         private readonly Dictionary<string, object> _repositories = [];
         public IGenericRepository<TEntity, Tkey> GetRepository<TEntity, Tkey>() where TEntity : BaseEntity<Tkey>
