@@ -8,6 +8,6 @@ namespace DomainLayer.Contracts
 {
     public interface IDataseeding
     {
-        void DataSeed();
+         Task DataSeedAsync();
     }
 }

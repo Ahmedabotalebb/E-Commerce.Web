@@ -8,7 +8,7 @@ namespace E_Commerce.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +31,7 @@ namespace E_Commerce.Web
 
             using var scoope = app.Services.CreateScope();
             var ObjectOfDataseeding = scoope.ServiceProvider.GetRequiredService<IDataseeding>();
-            ObjectOfDataseeding.DataSeed();
+             await ObjectOfDataseeding.DataSeedAsync();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
