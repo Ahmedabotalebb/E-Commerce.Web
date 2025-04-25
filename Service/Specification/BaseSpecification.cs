@@ -11,11 +11,11 @@ namespace Service.Specification
 {
     abstract class BaseSpecification<TEntity, TKey> : ISpecification<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {
-        protected BaseSpecification(Expression<Func<TEntity,bool>> CriteiaExpression)
+        protected BaseSpecification(Expression<Func<TEntity,bool>>? CriteiaExpression)
         {
             Criteria = CriteiaExpression;
         }
-        public Expression<Func<TEntity, bool>> Criteria { get;private set; }
+        public Expression<Func<TEntity, bool>>? Criteria { get;private set; }
 
         public List<Expression<Func<TEntity, object>>> IncludeExpressions { get; } = new List<Expression<Func<TEntity, object>>>();
 

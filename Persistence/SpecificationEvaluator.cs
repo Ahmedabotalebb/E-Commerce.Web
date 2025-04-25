@@ -21,7 +21,7 @@ namespace Persistence
 
             if(specification.IncludeExpressions is not null && specification.IncludeExpressions.Count > 0)
             {
-                Query = specification.IncludeExpressions.Aggregate(Query, (CurrentQuery, IncludeExp) => CurrentQuery.Include(IncludeExp));
+                Query = specification.IncludeExpressions.Aggregate(Query, (CurrentQuery, IncludeExp) => CurrentQuery.Include(IncludeExp));  
             }
             return Query;
         }
