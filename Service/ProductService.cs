@@ -8,6 +8,7 @@ using DomainLayer.Contracts;
 using DomainLayer.Models;
 using Service.Specification;
 using ServiceApstraction;
+using Shared;
 using Shared.DataTransfereObjects;
 
 namespace Service
@@ -23,7 +24,7 @@ namespace Service
         
         
 
-        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(int? TypeId, int? BrandId)
+        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(int? TypeId, int? BrandId,ProductSortingOptions sortingOptions)
         {
             var specification = new ProductWithBrandandTypeSepcification(TypeId, BrandId);
 

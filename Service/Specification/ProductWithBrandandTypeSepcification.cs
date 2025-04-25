@@ -4,17 +4,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DomainLayer.Models;
+using Shared;
 
 namespace Service.Specification
 {
     class ProductWithBrandandTypeSepcification : BaseSpecification <Product , int>
     {
-        public ProductWithBrandandTypeSepcification(int? TypeId, int? BrandId) : base(b => (!BrandId.HasValue || b.BrandId == BrandId)
+        public ProductWithBrandandTypeSepcification(int? TypeId, int? BrandId,ProductSortingOptions sortingOptions) : base(b => (!BrandId.HasValue || b.BrandId == BrandId)
         && (!TypeId.HasValue || b.TypeId == TypeId)
         )
         {
             AddInclude(P => P.poductBrand);
             AddInclude(P => P.ProductType);
+
+            switch (sortingOptions)
+            {
+                case ProductSortingOptions.NameAsc:
+                    AddOrderBy(b=>b.Name);
+                    break;
+                case ProductSortingOptions.NameDesc:
+                    AddOrderByDecsinding(b=>b.Name);
+                    break;
+                case ProductSortingOptions.PriceAsc:
+                    AddOrderBy(b=>b.Price);
+                    break;
+                case ProductSortingOptions.PriceDesc:
+                    AddOrderByDecsinding(b => b.Price);
+                    break;
+                    default:
+                    break;
+                        
+
+            }
         }
         public ProductWithBrandandTypeSepcification(int Id):base(B=>B.Id == Id)
         {

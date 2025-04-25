@@ -19,6 +19,18 @@ namespace Persistence
                 Query = Query.Where(specification.Criteria);
             }
 
+            if(specification.OrderBy is not null)
+            {
+                Query = Query.OrderBy(specification.OrderBy);
+            }
+            if(specification.OrderByDescending is not null)
+            {
+                Query =Query.OrderByDescending(specification.OrderByDescending);    
+            }
+
+
+
+
             if(specification.IncludeExpressions is not null && specification.IncludeExpressions.Count > 0)
             {
                 Query = specification.IncludeExpressions.Aggregate(Query, (CurrentQuery, IncludeExp) => CurrentQuery.Include(IncludeExp));  
