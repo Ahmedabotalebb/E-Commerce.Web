@@ -9,7 +9,9 @@ namespace Service.Specification
 {
     class ProductWithBrandandTypeSepcification : BaseSpecification <Product , int>
     {
-        public ProductWithBrandandTypeSepcification():base(null)
+        public ProductWithBrandandTypeSepcification(int? TypeId, int? BrandId) : base(b => (!BrandId.HasValue || b.BrandId == BrandId)
+        && (!TypeId.HasValue || b.TypeId == TypeId)
+        )
         {
             AddInclude(P => P.poductBrand);
             AddInclude(P => P.ProductType);
