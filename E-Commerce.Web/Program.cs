@@ -4,6 +4,8 @@ using DomainLayer.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Persistence.Repository;
+using Service;
+using ServiceApstraction;
 
 namespace E_Commerce.Web
 {
@@ -27,6 +29,7 @@ namespace E_Commerce.Web
             builder.Services.AddScoped<IDataseeding, Dataseed>();
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
             builder.Services.AddAutoMapper(typeof(Service.ProductService).Assembly);
+            builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
             var app = builder.Build();
 
