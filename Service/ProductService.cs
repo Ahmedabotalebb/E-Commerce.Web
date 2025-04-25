@@ -39,7 +39,7 @@ namespace Service
         {
             var products = await _Unitofwork.GetRepository<ProductType, int>().GetAllAsync();
             var productsTypeDto = _Imapper.Map<IEnumerable<ProductType>, IEnumerable<TypeDto>>(products);
-            return productsTypeDtos;
+            return productsTypeDto;
         }
     }
 }
