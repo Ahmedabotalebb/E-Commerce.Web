@@ -15,7 +15,8 @@ namespace Service.Specification
         {
             Criteria = CriteiaExpression;
         }
-        public Expression<Func<TEntity, bool>>? Criteria { get;private set; }
+        #region Include
+        public Expression<Func<TEntity, bool>>? Criteria { get; private set; }
 
         public List<Expression<Func<TEntity, object>>> IncludeExpressions { get; } = new List<Expression<Func<TEntity, object>>>();
 
@@ -24,10 +25,28 @@ namespace Service.Specification
         {
             IncludeExpressions.Add(includeExpression);
         }
-        public Expression<Func<TEntity, object>> OrderBy {  get; private set; }
+        #endregion
+
+
+        #region Sorting
+        public Expression<Func<TEntity, object>> OrderBy { get; private set; }
 
         public Expression<Func<TEntity, object>> OrderByDescending { get; private set; }
+       
+
         protected void AddOrderBy(Expression<Func<TEntity, object>> orderbyExp) => OrderBy = orderbyExp;
         protected void AddOrderByDecsinding(Expression<Func<TEntity, object>> orderbyDescExp) => OrderByDescending = orderbyDescExp;
+        #endregion
+        #region Pagenation
+        public  int Take { get; private set; }
+        public  int Skip { get; private set; }
+        public  bool IsPagenated { get; set; }
+        protected void ApplyPagenation(int PageSize , int PageIndex)
+        {
+            IsPagenated = true;
+            Take = PageSize;
+            Skip =(PageIndex-1)*PageSize;
+        }
+        #endregion
     }
 }
