@@ -1,7 +1,8 @@
 
 using System.Data;
 using DomainLayer.Contracts;
-using E_Commerce.Web.CustomMiddleWare;
+using E_Commerce.Web.CutomMiddleware;
+using E_Commerce.Web.CutomMiddleware;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Persistence.Repository;
@@ -41,6 +42,20 @@ namespace E_Commerce.Web
              await ObjectOfDataseeding.DataSeedAsync();
 
             // Configure the HTTP request pipeline
+            #region Custom middelware
+
+            app.UseMiddleware<CustomExceptionHandlerMiddleWare>();
+
+
+            app.Use(async (RequesstContext, NextMiddleware) =>
+            {
+                Console.WriteLine("Request Under PRocessing");
+                await NextMiddleware.Invoke();
+                Console.WriteLine("Waiting Response");
+                Console.WriteLine(RequesstContext.Response.Body);
+            });
+
+            #endregion
 
             if (app.Environment.IsDevelopment())
             {
