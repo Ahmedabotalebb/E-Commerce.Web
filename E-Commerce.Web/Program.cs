@@ -1,6 +1,7 @@
 
 using System.Data;
 using DomainLayer.Contracts;
+using E_Commerce.Web.CustomMiddleWare;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Persistence.Repository;
@@ -39,7 +40,8 @@ namespace E_Commerce.Web
             var ObjectOfDataseeding = scoope.ServiceProvider.GetRequiredService<IDataseeding>();
              await ObjectOfDataseeding.DataSeedAsync();
 
-            // Configure the HTTP request pipeline.
+            // Configure the HTTP request pipeline
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
