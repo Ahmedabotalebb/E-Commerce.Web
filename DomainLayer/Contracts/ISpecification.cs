@@ -17,6 +17,7 @@ namespace DomainLayer.Contracts
         public int Take { get; }
         public int Skip { get; }
         public bool IsPagenated { get; set; }
+        
 
     }
 }

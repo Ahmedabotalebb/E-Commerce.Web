@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
-    public class ProductQueryParams
+     public class ProductQueryParams
     {
         private const int Defaultpagesize = 5;
         private const int maxpageSize = 10;
