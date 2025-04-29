@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using DomainLayer.Contracts;
+using DomainLayer.Exceptions;
 using DomainLayer.Models;
 using Service.Specification;
 using ServiceApstraction;
@@ -40,6 +42,11 @@ namespace Service
         {
             var specification = new ProductWithBrandandTypeSepcification(id);
             var product = await _Unitofwork.GetRepository<Product,int>().GetByIdAsync(specification);
+
+            if (product is null)
+            {
+                throw new ProductNotFoundException(id);
+            }
             return _Imapper.Map<Product, ProductDto>(product);
         }
 

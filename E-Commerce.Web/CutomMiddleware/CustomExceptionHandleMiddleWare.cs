@@ -1,4 +1,5 @@
-﻿using E_Commerce.Web.ErrorModel;
+﻿using DomainLayer.Exceptions;
+using E_Commerce.Web.ErrorModel;
 
 namespace E_Commerce.Web.CutomMiddleware
 {
@@ -23,14 +24,15 @@ namespace E_Commerce.Web.CutomMiddleware
             {
                 logger.LogError(ex, "Somethin Went Wrong");
 
-                httpcontext.Response.StatusCode = StatusCodes.Status500InternalServerError;
-
-                httpcontext.Response.ContentType = "application/json";
-
+                httpcontext.Response.StatusCode = ex switch
+                {
+                    NotFoundException => StatusCodes.Status404NotFound,
+                    _ => StatusCodes.Status500InternalServerError
+                };
 
                 var response = new ErrorToReturn()
                 {
-                    SatusCode = StatusCodes.Status500InternalServerError,
+                    SatusCode = httpcontext.Response.StatusCode,
                     ErrorMessage = ex.Message
 
                 };
