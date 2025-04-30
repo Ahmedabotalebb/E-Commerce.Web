@@ -11,7 +11,7 @@ using DomainLayer.Models.Product;
 using Service.Specification;
 using ServiceApstraction;
 using Shared;
-using Shared.DataTransfereObjects;
+using Shared.DataTransfereObjects.ProductModuleDto;
 
 namespace Service
 {

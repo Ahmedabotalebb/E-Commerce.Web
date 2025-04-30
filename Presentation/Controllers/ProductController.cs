@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ServiceApstraction;
 using Shared;
-using Shared.DataTransfereObjects;
+using Shared.DataTransfereObjects.ProductModuleDto;
 
 namespace Presentation.Controllers
 {
