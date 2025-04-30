@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
-using DomainLayer.Models;
+using DomainLayer.Models.Product;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence
