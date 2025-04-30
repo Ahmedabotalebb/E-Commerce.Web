@@ -3,6 +3,7 @@ using System.Data;
 using DomainLayer.Contracts;
 using E_Commerce.Web.CutomMiddleware;
 using E_Commerce.Web.CutomMiddleware;
+using E_Commerce.Web.Extention;
 using E_Commerce.Web.Factories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,39 +25,25 @@ namespace E_Commerce.Web
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerServices();
 
-            builder.Services.AddDbContext<StoreDbcontext>(Options =>
-            {
-                Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            });
-            builder.Services.AddScoped<IDataseeding, Dataseed>();
-            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
-            builder.Services.AddAutoMapper(typeof(Service.ProductService).Assembly);
-            builder.Services.AddScoped<IServiceManager, ServiceManager>();
+            builder.Services.AddInfrastructureServices(builder.Configuration);
+            
+            builder.Services.AddApplicationServices(); ///custom
 
-            builder.Services.Configure<ApiBehaviorOptions>((Options) =>
-            {
-                Options.InvalidModelStateResponseFactory = ApiResponseFactory.GenerateApiValidationErrorsResponse;
-          
 
-                
-            });
+            builder.Services.AddWebApplicationServices();
 
             var app = builder.Build();
 
 
 
-            using var scoope = app.Services.CreateScope();
-            var ObjectOfDataseeding = scoope.ServiceProvider.GetRequiredService<IDataseeding>();
-             await ObjectOfDataseeding.DataSeedAsync();
+            await app.SeedDataBaseAsync();
 
             // Configure the HTTP request pipeline
             #region Custom middelware
 
-            app.UseMiddleware<CustomExceptionHandlerMiddleWare>();
-
+            app.UseCustomExceptionMiddelWare();
 
             app.Use(async (RequesstContext, NextMiddleware) =>
             {
