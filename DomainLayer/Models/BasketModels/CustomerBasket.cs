@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Models.BasketModels
 {
-    class CustomerBasket
+    public class CustomerBasket
     {
         public string Id { get; set; }  //GUID
         public ICollection<BasketItem> Items { get; set; } = [];

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using StackExchange.Redis;
 
 
 namespace Persistence
@@ -18,7 +19,11 @@ namespace Persistence
             });
             services.AddScoped<IDataseeding, Dataseed>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+            services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddSingleton<IConnectionMultiplexer>((_) =>
+            {
+               return  ConnectionMultiplexer.Connect(configuration.GetConnectionString("RadisConnectionString"));
+            });
             return services;
         }
     }
