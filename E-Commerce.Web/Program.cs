@@ -33,6 +33,7 @@ public class Program
 
 
         builder.Services.AddWebApplicationServices();
+        builder.Services.AddJWTService(builder.Configuration);
 
         var app = builder.Build();
 
@@ -63,6 +64,9 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+
+        app.UseRouting();
+        app.UseAuthentication();
         app.UseAuthorization();
 
 
