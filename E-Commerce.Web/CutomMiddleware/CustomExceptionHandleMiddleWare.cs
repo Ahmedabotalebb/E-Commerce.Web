@@ -37,10 +37,17 @@ namespace E_Commerce.Web.CutomMiddleware
 
         private static ErrorToReturn HandleExceptionAsync(HttpContext httpcontext, Exception ex)
         {
-            httpcontext.Response.StatusCode = ex switch
+            var Response = new ErrorToReturn()
+            {
+                ErrorMessage = ex.Message,
+            };
+            Response.SatusCode = ex switch
             {
                 NotFoundException => StatusCodes.Status404NotFound,
+                UnauthorizedException => StatusCodes.Status401Unauthorized,
+                BadRequestException badRequestException=>GetBadRequestErrors(badRequestException, Response),
                 _ => StatusCodes.Status500InternalServerError
+
             };
 
             var response = new ErrorToReturn()
@@ -50,6 +57,12 @@ namespace E_Commerce.Web.CutomMiddleware
 
             };
             return response;
+        }
+
+        private static int GetBadRequestErrors(BadRequestException badRequestException, ErrorToReturn Response)
+        {
+            Response.Errors=badRequestException.Errors;
+            return StatusCodes.Status400BadRequest;
         }
 
         private static async Task HandleNotFoundEndPointException(HttpContext httpcontext)
