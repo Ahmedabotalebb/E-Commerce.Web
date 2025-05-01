@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Shared;
-using Shared.DataTransfereObjects;
+using Shared.DataTransfereObjects.ProductModuleDto;
 
 namespace ServiceApstraction
 {

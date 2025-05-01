@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DomainLayer.Contracts;
-using DomainLayer.Models;
+using DomainLayer.Models.Product;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence
