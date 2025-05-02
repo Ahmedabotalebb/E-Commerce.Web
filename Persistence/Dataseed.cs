@@ -5,12 +5,17 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DomainLayer.Contracts;
+using DomainLayer.Models.IdentityModule;
 using DomainLayer.Models.Product;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Identity;
 
 namespace Persistence
 {
-    public class Dataseed(StoreDbcontext _Dbcontext) : IDataseeding
+    public class Dataseed(StoreDbcontext _Dbcontext , UserManager<ApplicationUser> _User
+        ,RoleManager<IdentityRole> _Role,
+        StoreIdentityDbContext _identityDbcontext) : IDataseeding
     {
         public async Task DataSeedAsync()
         {
@@ -54,6 +59,47 @@ namespace Persistence
             catch (Exception ex)
             {
                 //TODO
+            }
+        }
+
+        public async Task IdentityDataSeedAsync()
+        {
+            try
+            {
+                if (!_Role.Roles.Any())
+                {
+                    await _Role.CreateAsync(new IdentityRole("admin"));
+                    await _Role.CreateAsync(new IdentityRole("SuperAdmin"));
+                }
+                if (!_User.Users.Any())
+                {
+                    var user01 = new ApplicationUser()
+                    {
+                        Email = "ahmed@gmail",
+                        DisplayName = "ahmed",
+                        PhoneNumber = "010",
+                        UserName = "ahmedabotaleb"
+                    };
+                    var user02 = new ApplicationUser()
+                    {
+                        Email = "salma@gmail",
+                        DisplayName = "salma",
+                        PhoneNumber = "010",
+                        UserName = "salma123"
+                    };
+                    await _User.CreateAsync(user01, "P@ssw0rd");
+                    await _User.CreateAsync(user02, "P@ssw0rd");
+
+
+                    await _User.AddToRoleAsync(user01, "admin");
+                    await _User.AddToRoleAsync(user01, "admin");
+                }
+                await _identityDbcontext.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

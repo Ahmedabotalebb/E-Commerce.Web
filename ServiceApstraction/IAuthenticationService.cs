@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Shared.DataTransfereObjects.IdentityDto;
+
+namespace ServiceApstraction
+{
+    public interface IAuthenticationService
+    {
+        Task<UserDto> LoginAsync(LoginDto loginDto);
+        Task<UserDto> RegisterAsync( RegisterDto registerDto);
+
+        Task<bool> CheckEmailAsync(string Email);
+
+        Task<AddressDto>  GetCurrentAddressAsync(string Email);
+
+
+        Task<AddressDto>  UpdateCurrentUserAddressAsync(string Email, AddressDto addressDto);
+
+        Task<UserDto> GetCurrentUserAync(string Email);
+
+        Task<AddressDto> GetCurrentUserAddressAsync(string Eamil);
+    }
+}

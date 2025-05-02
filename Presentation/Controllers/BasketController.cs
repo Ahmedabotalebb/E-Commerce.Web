@@ -10,7 +10,7 @@ using Shared.DataTransfereObjects.BasketModuleDto;
 namespace Presentation.Controllers
 {
     [ApiController]
-    [Route("api/[Controller]")]
+    [Route("api/[controller]")]
     class BasketController(IServiceManager serviceManager) : ControllerBase
     {
         [HttpGet]
